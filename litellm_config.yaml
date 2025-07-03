@@ -1,6 +1,5 @@
 general_settings:
   database_connection_pool_limit: 20
-  master_key: os.environ/MASTER_KEY
   proxy_batch_write_at: 60
   database_connection_pool_limit: 10
   disable_error_logs: True
