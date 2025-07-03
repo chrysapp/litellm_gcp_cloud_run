@@ -1,16 +1,30 @@
 general_settings:
   database_connection_pool_limit: 20
+  master_key: os.environ/MASTER_KEY
+  proxy_batch_write_at: 60
+  database_connection_pool_limit: 10
+  disable_error_logs: True
+  allow_requests_on_db_unavailable: True
 
 model_list:
-  - model_name: fake-openai-endpoint
-    litellm_params:
-      model: openai/my-fake-model
-      api_key: my-fake-key
-      api_base: https://exampleopenaiendpoint-production.up.railway.app/
+- model_name: flash
+  litellm_params:
+    model: gemini/gemini-2.5-flash
+    api_key: os.environ/GEMINI_API_KEY
+- model_name: pro
+  litellm_params:
+    model: gemini/gemini-2.5-pro
+    api_key: os.environ/GEMINI_API_KEY
+- model_name: lite
+  litellm_params:
+    model: gemini/gemini-2.5-flash-lite-preview-06-17
+    api_key: os.environ/GEMINI_API_KEY
 
 litellm_settings:
   drop_params: True
-  success_callback: ["prometheus"]
-  failure_callback: ["prometheus"]
-  service_callback: ["prometheus_system"]
+  request_timeout: 600    # raise Timeout error if call takes longer than 600 seconds. Default value is 6000seconds if not set
+  set_verbose: False      # Switch off Debug Logging, ensure your logs do not have any debugging on
+  json_logs: true         # Get debug logs in json format
+
+
 
